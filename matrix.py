@@ -18,18 +18,18 @@ def make_scale( x, y, z ):
     return scale_m
 
 def make_rotX( theta ):
-    theta = math.radians(theta)
-    rotX_m = [[1, 0, 0, 0],[0, math.cos(theta), -1 * math.sin(theta), 0],[0, math.sin(theta), math.cos(theta), 0],[0, 0, 0, 1]]
+    theta = theta * math.pi/180
+    rotX_m = [[1, 0, 0, 0],[0, math.cos(theta), math.sin(theta), 0],[0, -1 * math.sin(theta), math.cos(theta), 0],[0, 0, 0, 1]]
     return rotX_m
 
 def make_rotY( theta ):
-    theta = math.radians(theta)
-    rotY_m = [[math.cos(theta), 0, math.sin(theta), 0], [0, 1, 0, 0], [-1*math.sin(theta), 0, math.cos(theta), 0],[0, 0, 0, 1]]
+    theta = theta * math.pi/180
+    rotY_m = [[math.cos(theta), 0, -1 * math.sin(theta), 0], [0, 1, 0, 0], [math.sin(theta), 0, math.cos(theta), 0],[0, 0, 0, 1]]
     return rotY_m
 
 def make_rotZ( theta ):
-    theta = math.radians(theta)
-    rotZ_m = [[math.cos(theta), -1 * math.sin(theta), 0, 0],[math.sin(theta), math.cos(theta), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
+    theta = theta * math.pi/180
+    rotZ_m = [[math.cos(theta), math.sin(theta), 0, 0],[-1 * math.sin(theta), math.cos(theta), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
     return rotZ_m
 
 #print the matrix such that it looks like
@@ -62,10 +62,10 @@ def matrix_mult( m1, m2 ):
         tmp = row[:]
 
         for r in range(4):
-            m2[point][r] = (int(m1[0][r] * tmp[0]) +
-                            int(m1[1][r] * tmp[1]) +
-                            int(m1[2][r] * tmp[2]) +
-                            int(m1[3][r] * tmp[3]))
+            m2[point][r] = (m1[0][r] * tmp[0] +
+                            m1[1][r] * tmp[1] +
+                            m1[2][r] * tmp[2] +
+                            m1[3][r] * tmp[3])
         point+= 1
 
 
