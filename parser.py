@@ -87,7 +87,8 @@ def parse_file( fname, points, transform, screen, color ):
                 params = f.next()
                 params = params.strip('\n')
                 display(screen)
-                save_extension(screen, params[0])
+                print(params[0])
+                save_extension(screen, params)
             else:
                 print ("params")
 
