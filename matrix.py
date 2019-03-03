@@ -10,25 +10,25 @@ z0  z1  ... zn
 import math
 
 def make_translate( x, y, z ):
-    translate_m = [[1, 0, 0, x],[0, 1, 0, y],[0, 0, 1, z],[0, 0, 0, 1]]
+    translate_m = [[1, 0, 0, 0],[0, 1, 0, 0],[0, 0, 1, 0],[x,y,z, 1]]
     return translate_m
 
 def make_scale( x, y, z ):
-    scale_m = [[a, 0, 0, 0],[0, b, 0, 0],[0, 0, c, 0],[0, 0, 0, 1]] 
+    scale_m = [[x, 0, 0, 0],[0, y, 0, 0],[0, 0, z, 0],[0, 0, 0, 1]]
     return scale_m
 
 def make_rotX( theta ):
-    theta = theta * (math.pi() / 180.0)
+    theta = math.radians(theta)
     rotX_m = [[1, 0, 0, 0],[0, math.cos(theta), -1 * math.sin(theta), 0],[0, math.sin(theta), math.cos(theta), 0],[0, 0, 0, 1]]
     return rotX_m
 
 def make_rotY( theta ):
-    theta = theta * (math.pi() / 180.0)
+    theta = math.radians(theta)
     rotY_m = [[math.cos(theta), 0, math.sin(theta), 0], [0, 1, 0, 0], [-1*math.sin(theta), 0, math.cos(theta), 0],[0, 0, 0, 1]]
-    return rotY_m 
+    return rotY_m
 
 def make_rotZ( theta ):
-    theta = theta * (math.pi() / 180.0)
+    theta = math.radians(theta)
     rotZ_m = [[math.cos(theta), -1 * math.sin(theta), 0, 0],[math.sin(theta), math.cos(theta), 0, 0], [0, 0, 1, 0], [0, 0, 0, 1]]
     return rotZ_m
 
@@ -62,10 +62,10 @@ def matrix_mult( m1, m2 ):
         tmp = row[:]
 
         for r in range(4):
-            m2[point][r] = (m1[0][r] * tmp[0] +
-                            m1[1][r] * tmp[1] +
-                            m1[2][r] * tmp[2] +
-                            m1[3][r] * tmp[3])
+            m2[point][r] = (int(m1[0][r] * tmp[0]) +
+                            int(m1[1][r] * tmp[1]) +
+                            int(m1[2][r] * tmp[2]) +
+                            int(m1[3][r] * tmp[3]))
         point+= 1
 
 

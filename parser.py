@@ -36,8 +36,51 @@ def parse_file( fname, points, transform, screen, color ):
     with open(fname, "r") as f:
         for line in f:
             line = line.strip('\n')
-            if(line == "line") {
-
-
-
+            print(line)
+            if(line == "line"):
+                params = f.next()
+                params = params.strip('\n')
+                params = params.split(" ")
+                add_edge(points, int(params[0]), int(params[1]), int(params[2]), int(params[3]), int(params[4]), int(params[5]))
+            elif(line == "ident"):
+                ident(transform)
+            elif(line == "scale"):
+                params = f.next()
+                params = params.strip('\n')
+                params = params.split(" ")
+                scaler = make_scale(int(params[0]), int(params[1]), int(params[2]))
+                matrix_mult(scaler, transform)
+            elif(line == "move"):
+                params = f.next()
+                params = params.strip('\n')
+                params = params.split(" ")
+                transformer = make_translate(int(params[0]), int(params[1]), int(params[2]))
+                matrix_mult(transformer, transform)
+            elif(line == "rotate"):
+                params = f.next()
+                params = params.strip('\n')
+                params = params.split(" ")
+                if(params[0] == "z"):
+                    rotater = make_rotZ(int(params[1]))
+                elif(params[0] == "y"):
+                    rotater = make_rotY(int(params[1]))
+                elif(params[0] == "x"):
+                    rotater = make_rotX(int(params[1]))
+                matrix_mult(rotater, transform)
+            elif(line == "apply"):
+                matrix_mult(transform, points)
+            elif(line == "display"):
+                clear_screen(screen)
+                print_matrix(points)
+                draw_lines(points, screen, color)
+                display(screen)
+            elif(line == "save"):
+                clear_screen(screen)
+                draw_lines(points, screen, color)
+                params = f.next()
+                params = params.strip('\n')
+                display(screen)
+                save_extension(screen, params[0])
+            else:
+                print ("params")
 
